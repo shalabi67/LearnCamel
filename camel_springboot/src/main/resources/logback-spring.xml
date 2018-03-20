@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Profile specific logback configuration. -->
+
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+	<!-- console logging -->
+	<include
+		resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</configuration>

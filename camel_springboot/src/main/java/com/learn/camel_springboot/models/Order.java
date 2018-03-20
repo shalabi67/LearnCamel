@@ -2,7 +2,7 @@ package com.learn.camel_springboot.models;
 
 public class Order {
     private int id;
-    private int amount;
+    private double amount;
     private String description;
     private boolean processed;
 
@@ -14,11 +14,11 @@ public class Order {
         this.id = id;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -36,5 +36,15 @@ public class Order {
 
     public void setProcessed(boolean processed) {
         this.processed = processed;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", processed=" + processed +
+                '}';
     }
 }
