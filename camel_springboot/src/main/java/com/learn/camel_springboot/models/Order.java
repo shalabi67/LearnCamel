@@ -1,5 +1,8 @@
 package com.learn.camel_springboot.models;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.Serializable;
 
 public class Order implements Serializable {
@@ -7,6 +10,7 @@ public class Order implements Serializable {
     private double amount;
     private String description;
     private boolean processed;
+    private int type;
 
     public int getId() {
         return id;
@@ -40,13 +44,23 @@ public class Order implements Serializable {
         this.processed = processed;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", description='" + description + '\'' +
-                ", processed=" + processed +
-                '}';
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "";
+
     }
 }

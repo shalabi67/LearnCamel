@@ -14,6 +14,7 @@ CREATE TABLE Orders(
 	description varchar(50) NOT NULL,
 	amount double default(0.0),
 	processed bit default(0),
+	type int DEFAULT(0),
  CONSTRAINT PK_Orders PRIMARY KEY
 (
 	id ASC

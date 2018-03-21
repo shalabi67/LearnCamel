@@ -4,6 +4,9 @@ import com.learn.camel_springboot.camel.translator.OrderTranslator;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
+/**
+ * read from database all new orders and convert them to Order objects then write them to ORDERS queue.
+ */
 @Component
 public class OrdersDatabaseRoute extends RouteBuilder {
     @Override

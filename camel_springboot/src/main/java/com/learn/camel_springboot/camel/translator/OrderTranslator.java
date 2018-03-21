@@ -40,6 +40,7 @@ public class OrderTranslator {
         order.setDescription((String)getValue(orderMap, "DESCRIPTION"));
         order.setAmount((Double)getValue(orderMap, "AMOUNT"));
         order.setProcessed((Boolean)getValue(orderMap, "PROCESSED"));
+        order.setType((int)getValue(orderMap, "TYPE"));
         return order;
     }
 
