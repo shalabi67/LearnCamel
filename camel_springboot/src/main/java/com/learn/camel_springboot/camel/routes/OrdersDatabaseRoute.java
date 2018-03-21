@@ -10,8 +10,8 @@ public class OrdersDatabaseRoute extends RouteBuilder {
     public void configure() throws Exception {
         from("sql:select * from orders where processed=0?" +
                 "consumer.onConsume=update orders set processed=1 where id=:#id")
-                //.bean(OrderTranslator.class, "toJson")
+                .bean(OrderTranslator.class, "toOrder")
                 //.to("log:com.learn.camel_springboot.camel.routes.OrdersDatabaseRoute?level=INFO");
-        .to("activemq:ORDERS");
+                .to("activemq:ORDERS");
     }
 }

@@ -1,6 +1,8 @@
 package com.learn.camel_springboot.models;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order implements Serializable {
     private int id;
     private double amount;
     private String description;

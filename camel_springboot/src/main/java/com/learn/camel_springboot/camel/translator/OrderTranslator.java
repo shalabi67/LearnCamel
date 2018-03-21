@@ -10,8 +10,11 @@ import java.util.Map;
 @Component
 public class OrderTranslator {
     private static final Logger LOG = LoggerFactory.getLogger(OrderTranslator.class);
-    public String toJson(Map<String, Object> orderMap) {
+    public String toJson(Order order) {
         LOG.info("tojson started.");
+        if(order == null)
+            return "";
+
         /*
         StringBuilder orderBuilder = new StringBuilder("{");
         for(String key : orderMap.keySet()) {
@@ -24,15 +27,25 @@ public class OrderTranslator {
         LOG.info(orderString);
         */
 
+        //Order order = getOrder(orderMap);
+
+
+        LOG.info(order.toString());
+        return order.toString();
+    }
+
+    private Order getOrder(Map<String, Object> orderMap) {
         Order order = new Order();
         order.setId((int)getValue(orderMap, "ID"));
         order.setDescription((String)getValue(orderMap, "DESCRIPTION"));
         order.setAmount((Double)getValue(orderMap, "AMOUNT"));
         order.setProcessed((Boolean)getValue(orderMap, "PROCESSED"));
+        return order;
+    }
 
-
-        LOG.info(order.toString());
-        return order.toString();
+    public Order toOrder(Map<String, Object> orderMap) {
+        Order order = getOrder(orderMap);
+        return order;
     }
     private Object getValue(Map<String, Object> orderMap, String key) {
         if(orderMap.containsKey(key)) {
