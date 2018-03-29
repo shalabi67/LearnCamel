@@ -1,83 +1,53 @@
 package com.learn.camel_springboot.routes;
 
-import com.learn.camel_springboot.camel.routes.RestRoute;
+import com.learn.camel_springboot.CamelSpringbootApplication;
 import com.learn.camel_springboot.models.Order;
-import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.test.spring.CamelSpringBootRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 
-//@RunWith(CamelSpringJunit4ClassRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = {RestRouteTests.class})
 @ActiveProfiles("test")
-@RunWith(CamelSpringBootRunner.class)
-@SpringBootTest
+@EnableAutoConfiguration
+@ComponentScan //(basePackages = {"com.learn.camel_testing.camel.routes"})
+public class RestRouteTests {
 
-public class RestRouteTests extends CamelTestSupport {
+    @EndpointInject(uri = "{{bagsOrderSource}}")
+    ProducerTemplate ordersQueueProducer;
 
-    @Autowired
-    private CamelContext camelContext;
-
-    @Autowired
-    private RestRoute restRoute;
+    @EndpointInject(uri = "{{restEndPoint}}")
+    MockEndpoint restMock;
 
 
-    @Override
-    protected RouteBuilder createRouteBuilder() {
-        return restRoute;
-    }
-
-    @Override
-    protected CamelContext createCamelContext() throws Exception {
-        return camelContext;
-    }
- 
-    @EndpointInject(uri = "activemq:BAGS_ORDERS")
-    private ProducerTemplate ordersQueueProducer;
-
-    @Value("${restEndPoint}")
-    private String restEndPoint;
- 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        //RouteDefinition definition = context().getRouteDefinitions().get(0);
-        //definition.adviceWith(context(), restRoute);
-    }
- 
-    @Override
-    public String isMockEndpointsAndSkip() {
-            return "myEndpoint:put*";
-    }
- 
     @Test
+    @DirtiesContext
     public void shouldSucceed() throws Exception {
-        assertNotNull(camelContext);
-        assertNotNull(ordersQueueProducer);
+        Assert.assertNotNull(restMock);
+        Assert.assertNotNull(ordersQueueProducer);
         int messageCount = 1;
 
-        MockEndpoint restMock = getMockEndpoint(restEndPoint);
+        //MockEndpoint restMock = getMockEndpoint(restEndPoint);
         restMock.expectedMessageCount(messageCount);
         restMock.expectedBodiesReceived(order.toString());
 
         ordersQueueProducer.sendBody(order.toString());
 
         restMock.assertIsNotSatisfied();
-        //List<Exchange> list = restMock.getReceivedExchanges();
+        List<Exchange> list = restMock.getReceivedExchanges();
         //Assert.assertEquals(messageCount, list.size());
 
         /*
