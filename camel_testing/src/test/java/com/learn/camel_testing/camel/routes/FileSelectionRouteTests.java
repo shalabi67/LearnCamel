@@ -21,7 +21,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @ActiveProfiles("test")
 @EnableAutoConfiguration
 @ComponentScan
-public class FileSelectionRouteTests extends TestCase {
+public class FileSelectionRouteTests {
 
     public static final String NICE_DOG = "nice dog", NASTY_CAT="nasty cat", SUPERNASTY_CAT="super nasty cat";
 
