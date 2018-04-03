@@ -1,6 +1,7 @@
 package com.learn.camel_springboot.camel.routes;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.RouteDefinition;
@@ -16,9 +17,12 @@ public class RestRoute extends RouteBuilder{
     @Override
     public void configure() throws Exception {
         from("{{bagsOrderSource}}")
+                .routeId("RestRoute")
                 .log("send to rest service")
                 .setHeader("CamelHttpMethod", constant("POST"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+                .log(LoggingLevel.WARN, "body=${body} Header=${headers}")
+                .log(LoggingLevel.WARN, "exchange=${exchange}")
                 .to("{{restEndPoint}}");
     }
 }
