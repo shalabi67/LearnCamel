@@ -1,0 +1,27 @@
+#Kafka springboot example
+##Producer example
+###setup
+C:\Users\mohammad>"C:\Program Files\Oracle\VirtualBox\vboxmanage.exe" internalcommands sethduuid d:\learn\LearnCamel\UbuntuServer.vdi
+
+kafka_2.12-1.0.1/bin/zookeeper-server-start.sh kafka_2.12-1.0.1/config/zookeeper.properties
+kafka_2.12-1.0.1/bin/kafka-server-start.sh /media/sf_kafka-springboot/server-producer.properties
+kafka_2.12-1.0.1/bin/kafka-topics.sh --create --topic producer_example --zookeeper localhost:2181 --replication-factor 1 --partitions 1
+kafka_2.12-1.0.1/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic producer_example --from-beginning
+
+on windows edit hosts files from location C:\Windows\System32\drivers\etc and add the line
+127.0.0.1 ubuntu
+
+
+#####setup on windows
+D:\kafka_2.12-1.1.0\bin\windows\zookeeper-server-start.bat D:\kafka_2.12-1.1.0\config\zookeeper.properties
+D:\kafka_2.12-1.1.0\bin\windows\kafka-server-start.bat D:\kafka_2.12-1.1.0\config\server.properties
+D:\kafka_2.12-1.1.0\bin\windows\kafka-topics.bat --create --topic producer_example --zookeeper localhost:2181 --replication-factor 1 --partitions 1
+D:\kafka_2.12-1.1.0\bin\windows\kafka-console-consumer.bat --zookeeper localhost:2181 --topic producer_example --from-beginning
+
+####debug
+kafka_2.12-1.0.1/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic producer_example
+kafka_2.12-1.0.1/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic producer_example
+
+#####debug on windows
+D:\kafka_2.12-1.1.0\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic producer_example
+D:\kafka_2.12-1.1.0\bin\windows\kafka-topics.bat --describe --zookeeper localhost:2181 --topic producer_example
