@@ -1,0 +1,18 @@
+Example 1: start kafka
+	1- Start zookeeper
+	 kafka_2.12-1.0.1/bin/zookeeper-server-start.sh kafka_2.12-1.0.1/config/zookeeper.properties
+	2- Connect to zookeeper using telnet
+	telnet 127.0.0.1 2181
+	3- Start kafka Broker
+	 kafka_2.12-1.0.1/bin/kafka-server-start.sh kafka_2.12-1.0.1/config/server.properties
+	4- Add topic
+	kafka_2.12-1.0.1/bin/kafka-topics.sh --create --topic single_topic --zookeeper localhost:2181 --replication-factor 1 --partitions 1
+	5- List available topics
+	kafka_2.12-1.0.1/bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+	7- Create a consumer
+	kafka_2.12-1.0.1/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic single_topic --from-beginning
+	Now you wil see messages you wrote int 6
+	8- Get topic detailes
+	 kafka_2.12-1.0.1/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic single_topic
+	9- dfgfsd
