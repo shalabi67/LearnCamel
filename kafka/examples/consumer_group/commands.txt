@@ -1,0 +1,12 @@
+	1- Start zookeeper
+	 kafka_2.12-1.0.1/bin/zookeeper-server-start.sh kafka_2.12-1.0.1/config/zookeeper.properties
+	2- Start kafka Broker
+	 kafka_2.12-1.0.1/bin/kafka-server-start.sh kafka_2.12-1.0.1/config/server-consumer_group.properties
+	3- Add topic
+	kafka_2.12-1.0.1/bin/kafka-topics.sh --create --topic multi_consumer_topic2 --zookeeper localhost:2181 --replication-factor 1 --partitions 3
+	4- List topic details
+	 kafka_2.12-1.0.1/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic multi_consumer_topic2
+
+
+to add a partition
+kafka_2.12-1.0.1/bin/kafka-topics.sh --alter --zookeeper localhost:2181 --topic multi_consumer_topic2 --partitions 4
