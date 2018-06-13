@@ -1,0 +1,4 @@
+# use cygwin
+scp -P 22  /cygdrive/d/learn/LearnCamel/kafka/examples/consumer_example/config/*.properties mohammad@192.168.1.203:~/kafka_2.12-1.0.1/config
+
+

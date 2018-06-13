@@ -1,0 +1,10 @@
+	1- Start zookeeper
+	 kafka_2.12-1.0.1/bin/zookeeper-server-start.sh kafka_2.12-1.0.1/config/zookeeper.properties
+	2- Start kafka Broker
+	 kafka_2.12-1.0.1/bin/kafka-server-start.sh kafka_2.12-1.0.1/config/server-consumer.properties
+	3- Add topic
+	kafka_2.12-1.0.1/bin/kafka-topics.sh --create --topic consumer_topic --zookeeper localhost:2181 --replication-factor 1 --partitions 3
+	4- List topic details
+	 kafka_2.12-1.0.1/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic consumer_topic
+5- generate messages
+	kafka_2.12-1.0.1/bin/kafka-producer-perf-test.sh --topic consumer_topic --num-records 50 --record-size 4 --throughput 10 --producer-props bootstrap.servers=192.168.1.203:9098 key.serializer=org.apache.kafka.common.serialization.StringSerializer value.serializer=org.apache.kafka.common.serialization.StringSerializer
